@@ -11,11 +11,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@yin-jinlong/h-ui": "^0.6.1",
+    "sass": "^1.77.6",
     "vue": "^3.4.14"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.3",
-    "javascript-obfuscator": "^4.1.0",
     "rollup-plugin-obfuscator": "^1.1.0",
     "terser": "^5.28.1",
     "typescript": "^5.3.3",
