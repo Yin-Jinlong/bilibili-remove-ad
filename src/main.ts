@@ -10,7 +10,7 @@ const query = (node: ParentNode, selector: string): Element => node.querySelecto
 function removeIfAdNode(card?: Element) {
     if (card?.nodeType !== Node.ELEMENT_NODE)
         return
-    if (query(card, 'use')?.getAttribute('xlink:href') === '#palette-ad')
+    if (!card.firstElementChild?.children.length || query(card, 'use')?.getAttribute('xlink:href') === '#palette-ad')
         card.remove()
 }
 
