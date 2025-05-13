@@ -7,21 +7,20 @@
   "homepage": "https://github.com/Yin-Jinlong/bilibili-remove-ad",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@yin-jinlong/h-ui": "^0.6.1",
-    "sass": "^1.77.6",
-    "vue": "^3.4.14"
+    "@yin-jinlong/h-ui": "^0.10.0",
+    "sass": "^1.88.0",
+    "vue": "^3.5.13"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.0.3",
+    "@vitejs/plugin-vue": "^5.2.4",
     "rollup-plugin-obfuscator": "^1.1.0",
-    "terser": "^5.28.1",
-    "typescript": "^5.3.3",
-    "vite": "^5.0.11",
-    "vite-plugin-monkey": "^3.5.1",
-    "vue-tsc": "^1.8.27"
+    "terser": "^5.39.1",
+    "typescript": "^5.8.3",
+    "vite": "^5.4.19",
+    "vite-plugin-monkey": "^3.5.2"
   }
 }
