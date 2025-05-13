@@ -16,7 +16,7 @@ export default defineConfig({
                 name: 'bilibili-remove-ad',
                 author: 'Yin-Jinlong',
                 description: 'B站移除广告',
-                version: '2.0',
+                version: '2.1',
                 homepage: 'https://github.com/Yin-Jinlong/bilibili-remove-ad',
                 homepageURL: 'https://github.com/Yin-Jinlong/bilibili-remove-ad',
                 icon: 'https://vitejs.dev/logo.svg',

@@ -9,6 +9,9 @@
                 <h-switch v-model="showTip"/>
             </div>
             <div class="row">
+                <h-check-box v-model="removeADBlockTips">移除广告拦截提示</h-check-box>
+            </div>
+            <div class="row">
                 <h-check-box v-model="removeFloorSingleCard">移除floor-single-card</h-check-box>
             </div>
         </template>
@@ -36,10 +39,12 @@ import {onMounted, ref, watch} from 'vue'
 
 const Key_ShowTip = 'showTip'
 const Key_RemoveFloorSingleCard = 'removeFloorSingleCard'
+const Key_RemoveADBlockTips = 'removeADBlockTips'
 
 const show = ref(false)
 const showTip = ref<boolean>((key(Key_ShowTip) ?? 'true') === 'true')
 const removeFloorSingleCard = ref<boolean>(getRemoveFloorSingleCard())
+const removeADBlockTips = ref<boolean>((key(Key_RemoveADBlockTips) ?? 'true') === 'true')
 
 
 function key(name: string, value?: any) {
@@ -84,6 +89,10 @@ function removeIfAdNode(card?: Element) {
 
 function run() {
 
+    if (removeADBlockTips.value) {
+        removeAdBlockTips()
+    }
+
     /**
      * 监听卡片元素容器
      * @param container 卡片元素容器
@@ -101,6 +110,12 @@ function run() {
     }
 
     listen(query(document, '.feed2 .container'))
+}
+
+function removeAdBlockTips() {
+    const div = document.querySelector('#i_cecream .adblock-tips')
+    if (div != null)
+        div.remove()
 }
 
 onMounted(() => {
@@ -126,6 +141,13 @@ watch(removeFloorSingleCard, (value) => {
 
 watch(showTip, (value) => {
     key(Key_ShowTip, value)
+})
+
+watch(removeADBlockTips, (value) => {
+    key(Key_RemoveADBlockTips, value)
+    if (value) {
+        removeAdBlockTips()
+    }
 })
 
 </script>
