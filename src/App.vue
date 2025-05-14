@@ -83,7 +83,11 @@ function removeIfAdNode(card?: Element) {
         if (card.classList.contains('floor-single-card'))
             card.remove()
     }
-    if (!card.firstElementChild?.children.length || query(card, 'use')?.getAttribute('xlink:href') === '#palette-ad')
+    if (
+        !card.firstElementChild?.children.length ||
+        query(card, 'use')?.getAttribute('xlink:href') === '#palette-ad' ||
+        card.firstElementChild?.firstElementChild == null
+    )
         card.remove()
 }
 
@@ -114,8 +118,7 @@ function run() {
 
 function removeAdBlockTips() {
     const div = document.querySelector('#i_cecream .adblock-tips')
-    if (div != null)
-        div.remove()
+    div?.remove()
 }
 
 onMounted(() => {
