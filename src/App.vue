@@ -72,23 +72,11 @@ function setRemoveFloorSingleCard(value: boolean) {
  */
 const query = (node: ParentNode, selector: string): Element => node.querySelector(selector) as Element
 
-/**
- * 移除元素（如果是广告）
- * @param card 卡片元素
- */
-function removeIfAdNode(card?: Element) {
-    if (card?.nodeType !== Node.ELEMENT_NODE)
-        return
-    if (removeFloorSingleCard.value) {
-        if (card.classList.contains('floor-single-card'))
-            card.remove()
-    }
-    if (
-        !card.firstElementChild?.children.length ||
-        query(card, 'use')?.getAttribute('xlink:href') === '#palette-ad' ||
-        card.firstElementChild?.firstElementChild == null
-    )
-        card.remove()
+function removeFloorSingleCards(container: Element) {
+    if (removeFloorSingleCard.value)
+        container.querySelectorAll('.floor-single-card').forEach(e => {
+            e.remove()
+        })
 }
 
 function run() {
@@ -104,13 +92,28 @@ function run() {
     const listen = (container?: Element) => {
         if (!container)
             return
-        new MutationObserver((mutationsList) => {
-            mutationsList.map((mutation) => mutation.addedNodes[0] as Element)
-                .forEach(removeIfAdNode)
+
+        function remove() {
+            let list = container!.querySelectorAll('.bili-feed-card>div:last-child>div:empty,.bili-video-card__stats--left:empty')
+            for (let i = 0; i < list.length; i++) {
+                let p = list[i].parentElement
+                while (p?.className?.includes('feed-card') === false) {
+                    p = p.parentElement!!
+                }
+                if (p?.parentElement?.className.includes('feed-card'))
+                    p = p.parentElement
+                p?.remove()
+            }
+        }
+
+        new MutationObserver((_) => {
+            remove()
+            removeFloorSingleCards(container)
         }).observe(container, {
-            childList: true
+            childList: true,
         })
-        Array.from(container.children).forEach(removeIfAdNode)
+        remove()
+        removeFloorSingleCards(container)
     }
 
     listen(query(document, '.feed2 .container'))
@@ -138,7 +141,7 @@ onMounted(() => {
 watch(removeFloorSingleCard, (value) => {
     setRemoveFloorSingleCard(value)
     if (value) {
-        Array.from(query(document, '.feed2 .container').children).forEach(removeIfAdNode)
+        removeFloorSingleCards(query(document, '.feed2 .container'))
     }
 })
 
